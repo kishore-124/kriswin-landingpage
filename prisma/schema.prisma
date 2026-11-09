@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Single-row table holding all editable site-wide content.
+model SiteSetting {
+  id            Int      @id @default(1)
+  companyName   String   @default("Kriswin Infotech Private Limited")
+  tagline       String   @default("Smart software. Real business results.")
+  primaryColor  String   @default("#0085B1")
+  accentColor   String   @default("#5DB823")
+  logoUrl       String   @default("/brand/kriswin-logo.svg")
+  logoLightUrl  String   @default("/brand/kriswin-logo-white.svg")
+  email         String   @default("software@kriswin-infotech.com")
+  phone         String   @default("+91 7010950016 / +917010889324")
+  whatsapp      String   @default("")
+  address       String   @default("")
+  mapEmbedUrl   String   @default("")
+  facebook      String   @default("")
+  twitter       String   @default("")
+  linkedin      String   @default("")
+  instagram     String   @default("")
+  youtube       String   @default("")
+
+  heroBadge     String   @default("")
+  heroTitle     String   @default("")
+  heroSubtitle  String   @default("")
+  heroCtaText   String   @default("Get a Free Consultation")
+  heroCta2Text  String   @default("Explore Products")
+
+  statYears     String   @default("10+")
+  statClients   String   @default("250+")
+  statProjects  String   @default("500+")
+  statSupport   String   @default("24/7")
+
+  aboutTitle    String   @default("")
+  aboutContent  String   @default("")
+  mission       String   @default("")
+  vision        String   @default("")
+  values        String   @default("") // one value per line: Title | Description
+
+  whyUs         String   @default("") // one item per line: icon | Title | Description
+  ctaTitle      String   @default("")
+  ctaSubtitle   String   @default("")
+  footerAbout   String   @default("")
+  metaDescription String @default("")
+
+  trustedBy     String   @default("") // one client / partner name per line
+  challenges    String   @default("") // icon | Title | Description
+  technologies  String   @default("") // Category | Tech1, Tech2, ...
+  industries    String   @default("") // icon | Industry name
+  faqs          String   @default("") // Question | Answer
+  consultPoints String   @default("") // one per line
+  updatedAt     DateTime @updatedAt
+}
+
+model Service {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  icon        String   @default("bi-code-slash")
+  summary     String
+  description String   @default("")
+  features    String   @default("") // one per line
+  sortOrder   Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  slug        String   @unique
+  tagline     String
+  description String   @default("")
+  features    String   @default("") // one per line
+  icon        String   @default("bi-box-seam")
+  imageUrl    String   @default("")
+  websiteUrl  String   @default("")
+  priceLabel  String   @default("")
+  badge       String   @default("")
+  sortOrder   Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model TeamMember {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  bio       String   @default("")
+  imageUrl  String   @default("")
+  linkedin  String   @default("")
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model Testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  company   String   @default("")
+  quote     String
+  rating    Int      @default(5)
+  sortOrder Int      @default(0)
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  phone     String   @default("")
+  subject   String   @default("")
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model AdminUser {
+  id           Int      @id @default(autoincrement())
+  name         String   @default("Admin")
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model CaseStudy {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  client      String   @default("")
+  industry    String   @default("")
+  summary     String
+  challenge   String   @default("")
+  solution    String   @default("")
+  results     String   @default("") // one per line
+  techStack   String   @default("") // comma separated
+  imageUrl    String   @default("")
+  readTime    String   @default("")
+  featured    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
